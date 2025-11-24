@@ -1,6 +1,6 @@
 # Expense Tracker (Vanilla JS)
 
-A simple expense tracking application built with vanilla JavaScript, HTML, and CSS. This project is part of my 8-week journey to strengthen my web development fundamentals.
+A simple expense tracking application built with vanilla JavaScript, HTML, and CSS.
 
 ## Project Overview
 
@@ -26,7 +26,7 @@ This expense tracker allows users to manage their personal expenses with feature
 - **JavaScript** - Core functionality and logic
 - **Local Storage** - Data persistence
 
-No frameworks or libraries used - built entirely with vanilla technologies to strengthen fundamentals.
+No frameworks or libraries used - built entirely with vanilla technologies.
 
 ## Development Timeline
 
@@ -82,4 +82,4 @@ expense-tracker-vanilla/
 
 ## Connect
 
-Built as part of my web development fundamentals journey. Follow my progress on Twitter [https://x.com/_devrobert].
+Follow my progress on Twitter [https://x.com/_devrobert].
