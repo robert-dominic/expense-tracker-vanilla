@@ -5,17 +5,15 @@ const date = document.getElementById('date');
 const category = document.getElementById('category');
 const description = document.getElementById('description');
 const amount = document.getElementById('amount');
+const expenseCard = document.getElementById('expense')
 
 addExpense.addEventListener('submit', (e) => {
     e.preventDefault();
-    console.log("Adding expenses...");
-
+    
     dateInput = date.value;
     categoryInput = category.value.trim().toLowerCase();
     descriptionInput = description.value.trim().toLowerCase();
     amountInput = amount.value;
-
-    console.log(dateInput, categoryInput, descriptionInput, amountInput);
 
     const expenseObject = {
       id: Date.now(),
@@ -25,6 +23,27 @@ addExpense.addEventListener('submit', (e) => {
       amount: amountInput,
     }
     expenses.push(expenseObject);
-    console.log(expenseObject);
+    handleExpense();
+    addExpense.reset();
     return;
 });
+
+function handleExpense() {
+    expenseCard.innerHTML = "";
+
+    expenses.forEach(exp => {
+        const card = document.createElement("div");
+        card.classList.add("expenses-card");
+
+        card.innerHTML = `
+          <div>
+            <span>${exp.date}</span>
+            <span>${exp.category}</span>
+          </div>
+          <p>${exp.description}</p>
+          <p>${exp.amount}</p>
+        `;
+
+        expenseCard.appendChild(card);
+    });
+}
