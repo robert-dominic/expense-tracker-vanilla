@@ -7,16 +7,17 @@
 </head>
 <body>
   <header>
+    <!-- Header's text -->
     <h1>Expense Tracker</h1>
   </header>
   <main class="container">
     <!-- Expense form -->
      <form id="expense-form">
-        <div class="form-input">
+            <!-- Date input -->
             <label for="date">Date</label>
             <input type="date" id="date" required>
-        </div>
-        <div class="form-input">
+
+            <!-- Category dropdown -->
             <label for="category">Category</label>
             <select name="category" id="category" required>
                 <option value="">Select Category</option>
@@ -25,21 +26,26 @@
                 <option value="utilities">Utilities</option>
                 <option value="other">Other</option>
             </select>
-        </div>
-        <div class="form-input">
+            
+            <!-- Description input -->
             <label for="description">Description</label>
             <input type="text" id="description" required>
-        </div>
-        <div class="form-input">
+            
+            <!-- Amount input -->
             <label for="amount">Amount</label>
             <input type="number" id="amount" required>
-        </div>
-        <button type="submit" id="add-btn">
-            Add
-        </button>
+            
+            <!-- Add expense button -->
+            <button type="submit" id="add-btn">
+              Add
+            </button>
      </form>
-
+     
+     <!-- Expenses card display -->
      <div id="expense"></div>
+
+     <!-- Total amount -->
+      <div id="total-expenses"></div>
   </main>
 
   <script src="./script.js"></script>

@@ -6,6 +6,7 @@ const category = document.getElementById('category');
 const description = document.getElementById('description');
 const amount = document.getElementById('amount');
 const expenseCard = document.getElementById('expense');
+const totalExpenses = document.getElementById('total-expenses');
 
 addExpense.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -47,16 +48,26 @@ function handleExpense() {
 
         expenseCard.appendChild(card);
     });
+    calculateTotal();
 };
 
 function handleDeleteExpense(id) {
   expenses = expenses.filter((exp) => exp.id !== id );
-  handleExpense()
-}
+  handleExpense();
+};
 
 expenseCard.addEventListener('click', (e) => {
     const id = Number(e.target.dataset.id); // ID of the expense
     if (e.target.classList.contains("delete-btn")) {
         handleDeleteExpense(id);
     }
-})
+});
+
+function calculateTotal() {
+   const total = expenses.reduce((acc, exp) => {
+    return acc + Number(exp.amount);
+  }, 0)
+
+  // Displays total expenses
+  totalExpenses.textContent = `Total Expense: ${total}`;
+};
