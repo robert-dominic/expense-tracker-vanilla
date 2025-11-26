@@ -5,11 +5,11 @@ const date = document.getElementById('date');
 const category = document.getElementById('category');
 const description = document.getElementById('description');
 const amount = document.getElementById('amount');
-const expenseCard = document.getElementById('expense')
+const expenseCard = document.getElementById('expense');
 
 addExpense.addEventListener('submit', (e) => {
     e.preventDefault();
-    
+
     dateInput = date.value;
     categoryInput = category.value.trim().toLowerCase();
     descriptionInput = description.value.trim().toLowerCase();
@@ -37,13 +37,26 @@ function handleExpense() {
 
         card.innerHTML = `
           <div>
-            <span>${exp.date}</span>
+            <span>${exp.amount}</span>
             <span>${exp.category}</span>
           </div>
           <p>${exp.description}</p>
-          <p>${exp.amount}</p>
+          <p>${exp.date}</p>
+          <button class="delete-btn" data-id="${exp.id}">Delete</button>
         `;
 
         expenseCard.appendChild(card);
     });
+};
+
+function handleDeleteExpense(id) {
+  expenses = expenses.filter((exp) => exp.id !== id );
+  handleExpense()
 }
+
+expenseCard.addEventListener('click', (e) => {
+    const id = Number(e.target.dataset.id); // ID of the expense
+    if (e.target.classList.contains("delete-btn")) {
+        handleDeleteExpense(id);
+    }
+})
