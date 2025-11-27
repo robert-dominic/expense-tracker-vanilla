@@ -5,17 +5,20 @@ const date = document.getElementById('date');
 const category = document.getElementById('category');
 const description = document.getElementById('description');
 const amount = document.getElementById('amount');
+const filterContainer = document.getElementById('filter-container');
 const expenseCard = document.getElementById('expense');
 const totalExpenses = document.getElementById('total-expenses');
 
 addExpense.addEventListener('submit', (e) => {
-    e.preventDefault();
+    e.preventDefault(); // avoid form refresh
 
+    // get user inputs
     dateInput = date.value;
     categoryInput = category.value.trim().toLowerCase();
     descriptionInput = description.value.trim().toLowerCase();
     amountInput = amount.value;
 
+    // Expense object to store user inputs
     const expenseObject = {
       id: Date.now(),
       date: dateInput,
@@ -23,16 +26,17 @@ addExpense.addEventListener('submit', (e) => {
       description: descriptionInput,
       amount: amountInput,
     }
-    expenses.push(expenseObject);
+    expenses.push(expenseObject); // store the object in the expense arr
     handleExpense();
-    addExpense.reset();
+    addExpense.reset(); // reset the form
     return;
 });
 
-function handleExpense() {
+function handleExpense(expenseToShow, expenseToCalculate) {
+    const expensesToDisplay = expenseToShow || expenses; // show filtered or all expenses
     expenseCard.innerHTML = "";
-
-    expenses.forEach(exp => {
+    expensesToDisplay.forEach(exp => {
+        // create a card and put the user's input there
         const card = document.createElement("div");
         card.classList.add("expenses-card");
 
@@ -48,14 +52,16 @@ function handleExpense() {
 
         expenseCard.appendChild(card);
     });
-    calculateTotal();
+    calculateTotal(expenseToCalculate);
 };
 
+// Delete and update
 function handleDeleteExpense(id) {
-  expenses = expenses.filter((exp) => exp.id !== id );
+  expenses = expenses.filter((exp) => exp.id !== id ); // keep the id that is not targeted
   handleExpense();
 };
 
+// event delegation
 expenseCard.addEventListener('click', (e) => {
     const id = Number(e.target.dataset.id); // ID of the expense
     if (e.target.classList.contains("delete-btn")) {
@@ -63,11 +69,32 @@ expenseCard.addEventListener('click', (e) => {
     }
 });
 
-function calculateTotal() {
-   const total = expenses.reduce((acc, exp) => {
+// Caculate and display total function
+function calculateTotal(expenseToCalculate) {
+   const totalToDisplay = expenseToCalculate || expenses; // calculate filtered or all expense
+   const total = totalToDisplay.reduce((acc, exp) => {
     return acc + Number(exp.amount);
-  }, 0)
+  }, 0);
+
+  // Total number of expense object
+  const totalObj = expenses.length;
 
   // Displays total expenses
-  totalExpenses.textContent = `Total Expense: ${total}`;
+  totalExpenses.textContent = `Total Expense${totalObj !== 1 ? 's' : ''}: ${total}`;
 };
+
+// listening for events on the filteredContainer (event delegation)
+filterContainer.addEventListener('click', (e) => {
+    const category = e.target.dataset.category;
+    if(!category) return; // stop the function if a category isn't clicked.
+    console.log('filtered category:', category)
+
+    let filtered;
+    
+    if (category === 'all') {
+        filtered = expenses; // show all expenses
+    } else {
+        filtered = expenses.filter((exp) => exp.category === category); // strictly show the selected category's expenses
+    };
+    handleExpense(filtered, filtered); // two params for the 'expenseToShow' & 'expenseToCalculate'
+});
