@@ -22,7 +22,7 @@
             <select name="category" id="category" required>
                 <option value="">Select Category</option>
                 <option value="food">Food</option>
-                <option value="transport">Transport</option>
+                <option value="transportation">Transportation</option>
                 <option value="utilities">Utilities</option>
                 <option value="other">Other</option>
             </select>
@@ -40,7 +40,16 @@
               Add
             </button>
      </form>
-     
+
+     <!-- Filter container -->
+      <div id="filter-container">
+        <button data-category="all" class="filter-option">All</button>
+        <button data-category="food" class="filter-option">Food</button>
+        <button data-category="transportation" class="filter-option">Transportation</button>
+        <button data-category="utilities" class="filter-option">Utilities</button>
+        <button data-category="other" class="filter-option">Other</button>
+      </div>
+
      <!-- Expenses card display -->
      <div id="expense"></div>
 
