@@ -4,20 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>expense-tracker</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
 </head>
 <body>
-  <header>
+  <header class="header">
     <!-- Header's text -->
     <h1>Expense Tracker</h1>
   </header>
   <main class="container">
     <!-- Expense form -->
      <form id="expense-form">
-            <!-- Date input -->
+        <!-- Date input -->
+        <div class="form-input">
             <label for="date">Date</label>
             <input type="date" id="date" required>
-
-            <!-- Category dropdown -->
+        </div>
+        <!-- Category dropdown -->
+        <div class="form-input">
             <label for="category">Category</label>
             <select name="category" id="category" required>
                 <option value="">Select Category</option>
@@ -26,21 +32,22 @@
                 <option value="utilities">Utilities</option>
                 <option value="other">Other</option>
             </select>
-            
-            <!-- Description input -->
+        </div>
+        <div class="form-input">   
+        <!-- Description input -->
             <label for="description">Description</label>
-            <input type="text" id="description" required>
-            
-            <!-- Amount input -->
+            <input type="text" id="description" placeholder="Describe the expense" required>
+        </div>
+        <div class="form-input">
+         <!-- Amount input -->
             <label for="amount">Amount</label>
-            <input type="number" id="amount" required>
-            
+            <input type="number" id="amount" placeholder="Enter amount" required>
+        </div>
             <!-- Add expense button -->
             <button type="submit" id="add-btn">
-              Add
+              Add Expense
             </button>
      </form>
-
      <!-- Filter container -->
       <div id="filter-container">
         <button data-category="all" class="filter-option">All</button>
@@ -48,15 +55,12 @@
         <button data-category="transportation" class="filter-option">Transportation</button>
         <button data-category="utilities" class="filter-option">Utilities</button>
         <button data-category="other" class="filter-option">Other</button>
+        <p id="total-expenses"></p>
       </div>
-
      <!-- Expenses card display -->
      <div id="expense"></div>
-
      <!-- Total amount -->
-      <div id="total-expenses"></div>
   </main>
-
   <script src="./script.js"></script>
 </body>
 </html>
