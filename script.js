@@ -27,6 +27,7 @@ addExpense.addEventListener('submit', (e) => {
       amount: amountInput,
     }
     expenses.push(expenseObject); // store the object in the expense arr
+    saveToLocalStorage();
     handleExpense();
     addExpense.reset(); // reset the form
     return;
@@ -58,6 +59,7 @@ function handleExpense(expenseToShow, expenseToCalculate) {
 // Delete and update
 function handleDeleteExpense(id) {
   expenses = expenses.filter((exp) => exp.id !== id ); // keep the id that is not targeted
+  saveToLocalStorage();
   handleExpense();
 };
 
@@ -80,7 +82,7 @@ function calculateTotal(expenseToCalculate) {
   const totalObj = expenses.length;
 
   // Displays total expenses
-  totalExpenses.textContent = `Total Expense${totalObj !== 1 ? 's' : ''}: ${total}`;
+  totalExpenses.textContent = `Total Expense${totalObj <= 1 ? '' : 's'}: ${total}`;
 };
 
 // listening for events on the filteredContainer (event delegation)
@@ -98,3 +100,18 @@ filterContainer.addEventListener('click', (e) => {
     };
     handleExpense(filtered, filtered); // two params for the 'expenseToShow' & 'expenseToCalculate'
 });
+
+// Save to local storage 
+function saveToLocalStorage() {
+  localStorage.setItem('expenses', JSON.stringify(expenses));
+};
+
+// Loads saved expenses on refresh
+function loadFromLocalStorage() {
+    const savedExpenses = JSON.parse(localStorage.getItem('expenses')) || []; // get any saved expense or an empty array on load
+    expenses = savedExpenses;
+    handleExpense();
+};
+
+// run this function once on-load
+loadFromLocalStorage();
