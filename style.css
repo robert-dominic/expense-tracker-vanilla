@@ -167,7 +167,8 @@ body {
 /* EXPENSES DISPLAY */
 #expense {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 2fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 370px));
+  justify-content: start;
   gap: 1rem;
   margin-bottom: 2rem;
 }
@@ -218,13 +219,16 @@ body {
 .expenses-card > p:first-of-type {
   font-weight: 500;
   color: var(--color-gray-600);
+  background-color: var(--color-gray-100);
   text-transform: capitalize;
+  padding: 10px;
 }
 
 .expenses-card > p:last-of-type {
   font-size: 0.875rem;
   color: var(--color-gray-400);
-  font-weight: 500;
+  font-weight: 500; 
+   padding: 10px;
 }
 
 .delete-btn {
