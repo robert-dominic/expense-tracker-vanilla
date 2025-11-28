@@ -8,6 +8,7 @@ const amount = document.getElementById('amount');
 const filterContainer = document.getElementById('filter-container');
 const expenseCard = document.getElementById('expense');
 const totalExpenses = document.getElementById('total-expenses');
+const filterButtons = document.querySelectorAll('.filter-option');
 
 addExpense.addEventListener('submit', (e) => {
     e.preventDefault(); // avoid form refresh
@@ -85,11 +86,16 @@ function calculateTotal(expenseToCalculate) {
   totalExpenses.textContent = `Total Expense${totalObj <= 1 ? '' : 's'}: ${total}`;
 };
 
+filterButtons[0].classList.add('active'); 
+
 // listening for events on the filteredContainer (event delegation)
 filterContainer.addEventListener('click', (e) => {
     const category = e.target.dataset.category;
     if(!category) return; // stop the function if a category isn't clicked.
-    console.log('filtered category:', category)
+
+    // remove active from the 'all-category'
+    filterButtons.forEach((btn) => btn.classList.remove('active'));
+    e.target.classList.add('active');
 
     let filtered;
     
