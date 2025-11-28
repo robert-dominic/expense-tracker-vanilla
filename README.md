@@ -72,6 +72,10 @@ expense-tracker-vanilla/
 └── README.md
 ```
 
+## Deployment 
+
+- [Live link ] [expense-tracker-vanilla](https://expense-tracker-vanilla-exp.vercel.app/)
+
 ## Future Improvements
 
 - Export data to CSV
