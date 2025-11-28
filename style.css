@@ -1,0 +1,337 @@
+/* CSS RESET & BASE STYLES */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --color-primary: #2041d7;
+  --color-primary-light: #4263f9;
+  --color-secondary: #ffffff;
+  --color-gray-100: #f5f5f5;
+  --color-gray-200: #e5e5e5;
+  --color-gray-300: #d4d4d4;
+  --color-gray-400: #a3a3a3;
+  --color-gray-600: #525252;
+  --color-gray-800: #262626;
+  --color-danger: #df2626;
+  --color-danger-light: #f14848;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --transition: all 0.3s ease;
+}
+
+body {
+  /* font-family: 'Inter', sans-serif; */
+  background-color: var(--color-gray-100);
+  color: var(--color-primary);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* HEADER */
+.header {
+  background-color: var(--color-primary);
+  color: var(--color-secondary);
+  padding: 0.6rem 1rem;
+  text-align: start;
+  box-shadow: var(--shadow-md);
+}
+
+.header h1 {
+  font-size: clamp(1.5rem, 4vw, 1.6rem);
+  font-weight: 600;
+  letter-spacing: -0.5px;
+}
+
+/* MAIN CONTAINER */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+/* FORM */
+#expense-form {
+  background-color: var(--color-secondary);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--color-gray-200);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.form-input {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-input label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-gray-800);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.form-input input,
+.form-input select {
+  padding: 0.75rem 1rem;
+  border: 2px solid var(--color-gray-300);
+  border-radius: var(--radius-md);
+  font-size: 1rem;
+  font-family: inherit;
+  background-color: var(--color-secondary);
+  color: var(--color-gray-800);
+  transition: var(--transition);
+}
+
+.form-input input:focus,
+.form-input select:focus {
+  outline: none;
+  border-color: var(--color-gray-400);
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+}
+
+.form-input input::placeholder {
+  color: var(--color-gray-400);
+}
+
+#add-btn {
+  grid-column: 4;
+  padding: 0.9rem 1.6rem;
+  background-color: var(--color-primary);
+  color: var(--color-secondary);
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: var(--shadow-sm);
+}
+
+#add-btn:hover {
+  background-color: var(--color-primary-light);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+#add-btn:active {
+  transform: translateY(0);
+}
+
+/* FILTER CONTAINER */
+#filter-container {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  background-color: var(--color-secondary);
+  padding: 1.5rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-gray-200);
+  margin-bottom: 2rem;
+}
+
+.filter-option {
+  padding: 0.625rem 1.25rem;
+  background-color: var(--color-secondary);
+  color: var(--color-gray-600);
+  border: 1px solid var(--color-gray-300);
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  text-transform: capitalize;
+}
+
+.filter-option.active {
+  background-color: var(--color-primary);
+  color: var(--color-secondary);
+  border-color: var(--color-primary);
+}
+
+/* EXPENSES DISPLAY */
+#expense {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 2fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.expenses-card {
+  background-color: var(--color-secondary);
+  border: 2px solid var(--color-gray-100);
+  border-radius: var(--radius-lg);
+  padding: 1.3rem;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.expenses-card > div:first-child {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--color-gray-200);
+}
+
+.expenses-card > div:first-child span:first-child {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-gray-800);
+}
+
+.expenses-card > div:first-child span:last-child {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  background-color: var(--color-primary);
+  color: var(--color-secondary);
+  padding: 0.375rem 0.75rem;
+  border-radius: var(--radius-sm);
+}
+
+.expenses-card > p {
+  font-size: 0.9375rem;
+  color: var(--color-gray-800);
+  line-height: 1.5;
+}
+
+.expenses-card > p:first-of-type {
+  font-weight: 500;
+  color: var(--color-gray-600);
+  text-transform: capitalize;
+}
+
+.expenses-card > p:last-of-type {
+  font-size: 0.875rem;
+  color: var(--color-gray-400);
+  font-weight: 500;
+}
+
+.delete-btn {
+  width: 300px;
+  padding: 0.625rem 1.25rem;
+  background-color: var(--color-danger);
+  color: var(--color-secondary);
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 0.855rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: auto;
+}
+
+.delete-btn:hover {
+  background-color: var(--color-danger-light);
+  color: var(--color-secondary);
+}
+
+.delete-btn:active {
+  transform: scale(0.98);
+}
+
+/* TOTAL EXPENSES */
+#total-expenses {
+  width: 200px;
+  background-color: var(--color-primary);
+  color: var(--color-secondary);
+  padding: 0.8rem 0.5rem;
+  border-radius: var(--radius-lg);
+  text-align: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  position: absolute;
+  right: 10px;
+  top: 20px;
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 1000px) {
+  .container {
+    padding: 1.5rem 1rem;
+  }
+
+  .header {
+    padding: 1rem 0.8rem;
+  }
+
+  #expense-form {
+    grid-template-columns: 1fr;
+  }
+
+  #add-btn{
+    grid-column: 1/-1;
+  }  
+
+  #filter-container {
+    padding: 1rem;
+    justify-content: center;
+  }
+
+  #expense {
+    grid-template-columns: 1fr;
+  }
+
+  #total-expenses {
+    position: relative;
+    margin-bottom: 1rem;
+    left: 2px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header h1 {
+    font-size: 1.5rem;
+  }
+
+  #expense-form,
+  #filter-container,
+  #total-expenses {
+    padding: 1rem;
+  }
+
+  .filter-option {
+    flex: 1 1 calc(50% - 0.375rem);
+    min-width: 120px;
+    text-align: center;
+  }
+
+  #add-btn{
+    grid-column: 1/-1;
+  }
+}
+
+/* EMPTY STATE */
+#expense:empty::after {
+  content: "No expenses here yet. Add one!";
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--color-gray-400);
+  font-size: 1.125rem;
+  font-weight: 500;
+}
