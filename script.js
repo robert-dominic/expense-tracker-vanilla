@@ -1,4 +1,6 @@
 let expenses = [];
+let isEditing = false;
+let editingID = null;
 
 const addExpense = document.getElementById('expense-form');
 const date = document.getElementById('date');
@@ -9,23 +11,40 @@ const filterContainer = document.getElementById('filter-container');
 const expenseCard = document.getElementById('expense');
 const totalExpenses = document.getElementById('total-expenses');
 const filterButtons = document.querySelectorAll('.filter-option');
+const addBtn = document.getElementById('add-btn');
 
 addExpense.addEventListener('submit', (e) => {
     e.preventDefault(); // avoid form refresh
 
-    // get user inputs
-    dateInput = date.value;
-    categoryInput = category.value.trim().toLowerCase();
-    descriptionInput = description.value.trim().toLowerCase();
-    amountInput = amount.value;
+    if (isEditing) {
+      //Find the arr using the editingID
+      const expenseToUpdate = expenses.find((exp) => exp.id === editingID);
+
+      //Update it's properties with the new form values
+      expenseToUpdate.date = date.value;
+      expenseToUpdate.category =category.value;
+      expenseToUpdate.description =description.value;
+      expenseToUpdate.amount = amount.value;
+
+      //Exit edit mode
+      isEditing = false;
+      editingID = null;
+
+      //Change back the button's text
+      addBtn.textContent = 'Add Expense';
+      handleExpense();
+      saveToLocalStorage();
+      addExpense.reset();
+      return;
+    }
 
     // Expense object to store user inputs
     const expenseObject = {
       id: Date.now(),
-      date: dateInput,
-      category: categoryInput,
-      description: descriptionInput,
-      amount: amountInput,
+      date: dateInput.value,
+      category: category.value.trim(),
+      description: description.value.trim(),
+      amount: amountInput.value,
     }
     expenses.push(expenseObject); // store the object in the expense arr
     saveToLocalStorage();
@@ -49,7 +68,10 @@ function handleExpense(expenseToShow, expenseToCalculate) {
           </div>
           <p>${exp.description}</p>
           <p>${exp.date}</p>
-          <button class="delete-btn" data-id="${exp.id}">Delete</button>
+          <div class="buttons-container">
+            <button class="edit-btn" data-id="${exp.id}">Edit</button>
+            <button class="delete-btn" data-id="${exp.id}">Delete</button>
+          </div>
         `;
 
         expenseCard.appendChild(card);
@@ -57,18 +79,38 @@ function handleExpense(expenseToShow, expenseToCalculate) {
     calculateTotal(expenseToCalculate);
 };
 
-// Delete and update
+// Delete Function
 function handleDeleteExpense(id) {
   expenses = expenses.filter((exp) => exp.id !== id ); // keep the id that is not targeted
   saveToLocalStorage();
   handleExpense();
 };
 
+// Edit Function
+function handleEditExpense(id) {
+  const expenseToEdit = expenses.find((exp) => exp.id === id);
+
+  //Populating the form with the values of the targeted id
+  date.value = expenseToEdit.date;
+  category.value = expenseToEdit.category;
+  description.value = expenseToEdit.description;
+  amount.value = expenseToEdit.amount;
+
+  //Change the state
+  isEditing = true;
+  editingID = id;
+
+  //Change the value of the Button
+  addBtn.textContent = 'Update';
+}
+
 // event delegation
 expenseCard.addEventListener('click', (e) => {
     const id = Number(e.target.dataset.id); // ID of the expense
     if (e.target.classList.contains("delete-btn")) {
         handleDeleteExpense(id);
+    } else if (e.target.classList.contains("edit-btn")) {
+      handleEditExpense(id);
     }
 });
 
