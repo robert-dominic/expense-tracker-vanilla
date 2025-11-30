@@ -13,6 +13,7 @@
   --color-gray-200: #e5e5e5;
   --color-gray-300: #d4d4d4;
   --color-gray-400: #a3a3a3;
+  --color-gray-500: #868585;
   --color-gray-600: #525252;
   --color-gray-800: #262626;
   --color-danger: #df2626;
@@ -134,15 +135,13 @@ body {
 
 /* FILTER CONTAINER */
 #filter-container {
-  position: relative;
   display: flex;
   flex-wrap: wrap;
   gap: 0.55rem;
   background-color: var(--color-secondary);
-  padding: 1.5rem;
+  padding: 1rem;
   border-radius: var(--radius-lg);
   border: 1px solid var(--color-gray-200);
-  margin-bottom: 2rem;
 }
 
 .filter-option {
@@ -231,8 +230,14 @@ body {
    padding: 10px;
 }
 
+.buttons-container {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
 .delete-btn {
-  width: 300px;
+  width: 50%;
   padding: 0.625rem 1.25rem;
   background-color: var(--color-danger);
   color: var(--color-secondary);
@@ -249,28 +254,54 @@ body {
 
 .delete-btn:hover {
   background-color: var(--color-danger-light);
-  color: var(--color-secondary);
 }
 
 .delete-btn:active {
   transform: scale(0.98);
 }
 
-/* TOTAL EXPENSES */
-#total-expenses {
-  width: 200px;
-  background-color: var(--color-primary);
+.edit-btn {
+  width: 50%;
+  padding: 0.625rem 1.25rem;
+  background-color: var(--color-gray-500);
   color: var(--color-secondary);
-  padding: 0.8rem 0.5rem;
-  border-radius: var(--radius-lg);
-  text-align: center;
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 0.5px;
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 0.855rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
   text-transform: uppercase;
-  position: absolute;
-  right: 10px;
-  top: 20px;
+  letter-spacing: 0.5px;
+  margin-top: auto;
+}
+
+.edit-btn:hover {
+  background-color: var(--color-gray-400);
+}
+
+.edit-btn:active {
+  transform: scale(0.98);
+}
+
+/* TOTAL EXPENSES */
+.total-container {
+  display: flex;
+  justify-content: end;
+  margin-bottom: 10px;
+}
+
+#total-expenses {
+  width: max-content;
+  background-color: var(--color-gray-200);
+  color: var(--color-gray-600);
+  border-radius: var(--radius-lg);
+  text-align: end;
+  padding: 0.8rem;
+  margin: 0.5rem;
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
 }
 
 /* RESPONSIVE DESIGN */
@@ -301,9 +332,7 @@ body {
   }
 
   #total-expenses {
-    position: relative;
-    margin-bottom: 1rem;
-    left: 2px;
+    padding: 0.8rem;
   }
 }
 
