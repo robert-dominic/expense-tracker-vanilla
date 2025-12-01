@@ -41,10 +41,10 @@ addExpense.addEventListener('submit', (e) => {
     // Expense object to store user inputs
     const expenseObject = {
       id: Date.now(),
-      date: dateInput.value,
+      date: date.value,
       category: category.value.trim(),
       description: description.value.trim(),
-      amount: amountInput.value,
+      amount: amount.value,
     }
     expenses.push(expenseObject); // store the object in the expense arr
     saveToLocalStorage();
