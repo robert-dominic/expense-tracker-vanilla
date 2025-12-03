@@ -85,7 +85,8 @@ body {
 }
 
 .form-input input,
-.form-input select {
+.form-input select,
+.form-input textarea {
   padding: 0.75rem 1rem;
   border: 2px solid var(--color-gray-300);
   border-radius: var(--radius-md);
@@ -97,7 +98,8 @@ body {
 }
 
 .form-input input:focus,
-.form-input select:focus {
+.form-input select:focus,
+.form-input textarea:focus {
   outline: none;
   border-color: var(--color-gray-400);
   box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
