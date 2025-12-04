@@ -55,11 +55,20 @@
      </form>
      <!-- Filter container -->
     <section id="filter-container">
+      <div>
         <button data-category="all" class="filter-option">All</button>
         <button data-category="food" class="filter-option">Food</button>
         <button data-category="transportation" class="filter-option">Transportation</button>
         <button data-category="utilities" class="filter-option">Utilities</button>
-        <button data-category="other" class="filter-option">Other</button>       
+        <button data-category="other" class="filter-option">Other</button>  
+      </div> 
+        
+      <!-- Date filter -->
+       <select name="date-filter" id="date-filter">
+        <option class="date-filter-option" data-days="all" value="all-time">All Time</option>
+        <option class="date-filter-option" data-days="7" value="last-7-days">Last 7 Days</option>
+        <option class="date-filter-option" data-days="30" value="last-30-days">Last 30 Days</option>
+       </select>
     </section>
     <section class="total-container">
       <span id="total-expenses"></san>
