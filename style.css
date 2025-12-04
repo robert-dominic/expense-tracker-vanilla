@@ -86,7 +86,8 @@ body {
 
 .form-input input,
 .form-input select,
-.form-input textarea {
+.form-input textarea,
+#date-filter {
   padding: 0.75rem 1rem;
   border: 2px solid var(--color-gray-300);
   border-radius: var(--radius-md);
@@ -99,7 +100,8 @@ body {
 
 .form-input input:focus,
 .form-input select:focus,
-.form-input textarea:focus {
+.form-input textarea:focus,
+#date-filter:focus {
   outline: none;
   border-color: var(--color-gray-400);
   box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
@@ -139,6 +141,7 @@ body {
 #filter-container {
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
   gap: 0.55rem;
   background-color: var(--color-secondary);
   padding: 1rem;
@@ -146,20 +149,21 @@ body {
   border: 1px solid var(--color-gray-200);
 }
 
-.filter-option {
+.filter-option{
   padding: 0.625rem 1.25rem;
+  margin-bottom: 0.5rem;
   background-color: var(--color-secondary);
   color: var(--color-gray-600);
   border: 1px solid var(--color-gray-300);
   border-radius: var(--radius-md);
-  font-size: 0.875rem;
-  font-weight: 600;
+  font-size: 1rem;
+  font-weight: 500;
   cursor: pointer;
   transition: var(--transition);
   text-transform: capitalize;
 }
 
-.filter-option.active {
+.filter-option.active{
   background-color: var(--color-primary);
   color: var(--color-secondary);
   border-color: var(--color-primary);
@@ -326,7 +330,7 @@ body {
 
   #filter-container {
     padding: 1rem;
-    justify-content: center;
+    justify-content: space-between;
   }
 
   #expense {
