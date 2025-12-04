@@ -44,7 +44,7 @@ body {
   box-shadow: var(--shadow-md);
 }
 
-.header h1 {
+#header-text, #greeting {
   font-size: clamp(1.5rem, 4vw, 1.6rem);
   font-weight: 600;
   letter-spacing: -0.5px;
@@ -55,6 +55,11 @@ body {
   max-width: 1200px;
   margin: 0 auto;
   padding: 2rem 1.5rem;
+}
+
+/* GREETING */
+#greeting-section {
+  margin-bottom: 0.5rem;
 }
 
 /* FORM */

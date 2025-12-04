@@ -198,5 +198,35 @@ function loadFromLocalStorage() {
     handleExpense();
 };
 
-// run this function once on-load
+//load expenses from localStorage
 loadFromLocalStorage();
+
+//check for username on-load
+let username = localStorage.getItem('user') || "";
+
+if (!username) {
+  username = prompt("Hello! What's your name?")
+}
+
+if (username) {
+  localStorage.setItem('user', username)
+}
+
+if (username === null || "") {
+  username = "Friend"
+  localStorage.setItem('user', username)
+}
+
+// Display greeting
+function displayGreeting() {
+  const hour = new Date().getHours();
+  let greeting;
+
+  if (hour < 12) greeting = "Morning";
+  else if (hour < 18) greeting = "How's the Day";
+  else greeting = "Evening";
+
+  document.getElementById('greeting').textContent = `${greeting}, ${username}!`;
+};
+
+displayGreeting();
