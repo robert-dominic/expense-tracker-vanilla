@@ -11,6 +11,7 @@ const filterContainer = document.getElementById('filter-container');
 const expenseCard = document.getElementById('expense');
 const totalExpenses = document.getElementById('total-expenses');
 const filterButtons = document.querySelectorAll('.filter-option');
+const dateFilter = document.getElementById('date-filter');
 const addBtn = document.getElementById('add-btn');
 
 addExpense.addEventListener('submit', (e) => {
@@ -128,6 +129,7 @@ function calculateTotal(expenseToCalculate) {
   totalExpenses.textContent = `Total Expense${totalObj <= 1 ? '' : 's'}: ${total}`;
 };
 
+// filtering by category
 filterButtons[0].classList.add('active'); 
 
 // listening for events on the filteredContainer (event delegation)
@@ -147,6 +149,41 @@ filterContainer.addEventListener('click', (e) => {
         filtered = expenses.filter((exp) => exp.category === category); // strictly show the selected category's expenses
     };
     handleExpense(filtered, filtered); // two params for the 'expenseToShow' & 'expenseToCalculate'
+});
+
+// date filtering
+dateFilter.addEventListener('change', (e) => {
+  const selectedValue = e.target.value;
+  // console.log("Date filtering expenses of:", selectedValue)
+
+  let daysBack;
+  
+  if (selectedValue === 'last-7-days') {
+    daysBack = 7;
+  } else if (selectedValue === 'last-30-days') {
+    daysBack = 30;
+  } else daysBack = null; // show 
+  
+  let cutoffDate;
+
+  if (daysBack) {
+    cutoffDate = new Date();
+    cutoffDate.setDate(cutoffDate.getDate() - daysBack);
+    // console.log("Cutoff date:", cutoffDate)
+  };
+
+  let filteredByDate;
+  
+  if (daysBack === null) {
+    filteredByDate = expenses; // show all expenses
+  } else {
+    filteredByDate = expenses.filter((exp) => {
+      const expenseDate = new Date(exp.date)
+      return expenseDate >= cutoffDate; // Keep if newer than cutoff
+    });
+  }
+  console.log("Filtered expenses:", filteredByDate);
+  handleExpense(filteredByDate, filteredByDate)
 });
 
 // Save to local storage 
