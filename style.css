@@ -296,7 +296,7 @@ body {
 }
 
 /* TOTAL EXPENSES */
-.total-container {
+/* .total-container {
   display: flex;
   justify-content: end;
   margin-bottom: 10px;
@@ -313,7 +313,7 @@ body {
   font-size: 1rem;
   font-weight: 700;
   text-transform: uppercase;
-}
+} */
 
 /* RESPONSIVE DESIGN */
 @media (max-width: 1000px) {

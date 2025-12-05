@@ -56,6 +56,28 @@
               Add Expense
             </button>
      </form>
+    
+     <!-- Data visualisation section -->
+      <section class="stats-container">
+        <!-- Cards on the left -->
+         <div class="stats-cards">
+           <div class="stat-card">
+            <span id="stat-total"></span>
+           </div>
+           <div class="stat-card">
+            <span id="month-stat">This Month: $0</span>
+           </div>
+           <div class="stat-card">            
+            <span id="stat-count">Number of Expenses: $0</span>
+           </div>
+         </div>
+
+         <!-- Right side: Pie chart -->
+         <div class="chart-container">
+          <canvas id="expense-chart"></canvas>
+         </div>
+      </section>
+
      <!-- Filter container -->
     <section id="filter-container">
       <div>
@@ -73,13 +95,11 @@
         <option class="date-filter-option" data-days="30" value="last-30-days">Last 30 Days</option>
        </select>
     </section>
-    <section class="total-container">
-      <span id="total-expenses"></san>
-    </section>
      <!-- Expenses card display -->
      <div id="expense"></div>
      <!-- Total amount -->
   </main>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="./script.js"></script>
 </body>
 </html>
