@@ -1,4 +1,5 @@
 let expenses = [];
+let myChart = null;
 let isEditing = false;
 let editingID = null;
 
@@ -9,7 +10,7 @@ const description = document.getElementById('description');
 const amount = document.getElementById('amount');
 const filterContainer = document.getElementById('filter-container');
 const expenseCard = document.getElementById('expense');
-const totalExpenses = document.getElementById('total-expenses');
+const totalExpenses = document.getElementById('stat-total');
 const filterButtons = document.querySelectorAll('.filter-option');
 const dateFilter = document.getElementById('date-filter');
 const addBtn = document.getElementById('add-btn');
@@ -64,7 +65,7 @@ function handleExpense(expenseToShow, expenseToCalculate) {
 
         card.innerHTML = `
           <div>
-            <span>${exp.amount}</span>
+            <span>$${exp.amount}</span>
             <span>${exp.category}</span>
           </div>
           <p>${exp.description}</p>
@@ -78,6 +79,7 @@ function handleExpense(expenseToShow, expenseToCalculate) {
         expenseCard.appendChild(card);
     });
     calculateTotal(expenseToCalculate);
+    renderChart();
 };
 
 // Delete Function
@@ -126,7 +128,7 @@ function calculateTotal(expenseToCalculate) {
   const totalObj = expenses.length;
 
   // Displays total expenses
-  totalExpenses.textContent = `Total Expense${totalObj <= 1 ? '' : 's'}: ${total}`;
+  totalExpenses.textContent = `Total Expense${totalObj <= 1 ? '' : 's'}: $${total}`;
 };
 
 // filtering by category
@@ -230,3 +232,67 @@ function displayGreeting() {
 };
 
 displayGreeting();
+
+// Chart 
+function renderChart() {
+  const ctx = document.getElementById('expense-chart');
+  
+  // Destroy old chart if it exists
+  if (myChart) {
+    myChart.destroy();
+  }
+  
+  // Group expenses by category
+  const groupedCat = expenses.reduce((acc, exp) => {
+    if(!acc[exp.category]) {
+      acc[exp.category] = 0;
+    }
+    acc[exp.category] += Number(exp.amount);
+    return acc;
+  }, {});
+
+  // Extract labels and values
+  const labels = Object.keys(groupedCat);
+  const values = Object.values(groupedCat);
+
+  // Create new chart
+  myChart = new Chart(ctx, {
+    type: 'pie',
+    data: {
+      labels: labels,
+      datasets: [{
+        data: values,
+        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0']
+      }]
+    },
+    options: {
+      plugins: {
+        legend: {
+          position: 'bottom',
+          labels: {
+            generateLabels: function(chart) {
+              const data = chart.data;
+              return data.labels.map((label, i) => ({
+                text: label.charAt(0).toUpperCase() + label.slice(1),
+                fillStyle: data.datasets[0].backgroundColor[i]
+              }));
+            }
+          }
+        },
+        tooltip: {
+          displayColors: true,
+          callbacks: {
+            title: function() {
+              return '';
+            },
+            label: function(context) {
+              const label = context.label || '';
+              const value = context.parsed || 0;
+              return label.charAt(0).toUpperCase() + label.slice(1) + ': $' + value;
+            }
+          }
+        }
+      }
+    }
+  });
+}
