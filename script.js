@@ -124,11 +124,8 @@ function calculateTotal(expenseToCalculate) {
     return acc + Number(exp.amount);
   }, 0);
 
-  // Total number of expense object
-  const totalObj = expenses.length;
-
   // Displays total expenses
-  totalExpenses.textContent = `Total Expense${totalObj <= 1 ? '' : 's'}: $${total}`;
+  totalExpenses.textContent = `$${total}`;
 };
 
 // filtering by category

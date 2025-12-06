@@ -58,25 +58,33 @@
      </form>
     
      <!-- Data visualisation section -->
-      <section class="stats-container">
-        <!-- Cards on the left -->
-         <div class="stats-cards">
-           <div class="stat-card">
-            <span id="stat-total"></span>
-           </div>
-           <div class="stat-card">
-            <span id="month-stat">This Month: $0</span>
-           </div>
-           <div class="stat-card">            
-            <span id="stat-count">Number of Expenses: $0</span>
-           </div>
+     <section class="stats-container">
+       <!-- Cards on the left -->
+      <h1 class="stats-text">Your expenses stats</h1>
+       <div class="stats-cards">
+         <div class="stat-card">
+           <h3>Total Expenses</h3>
+           <span id="stat-total">$0</span>
          </div>
+         <div class="stat-card">
+           <h3>This Month</h3>
+           <span id="stat-month">$0</span>
+         </div>
+         <div class="stat-card">
+           <h3>Number of Expenses</h3>
+           <span id="stat-count">0</span>
+         </div>
+         <div class="stat-card">
+           <h3>Average Expense</h3>
+           <span id="stat-average">$0</span>
+         </div>
+       </div>
 
-         <!-- Right side: Pie chart -->
-         <div class="chart-container">
-          <canvas id="expense-chart"></canvas>
-         </div>
-      </section>
+       <!-- Right side: Pie chart -->
+       <div class="chart-container">
+         <canvas id="expense-chart"></canvas>
+       </div>
+     </section>
 
      <!-- Filter container -->
     <section id="filter-container">
