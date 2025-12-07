@@ -127,7 +127,7 @@ function updateStats(expenseToCalculate) {
   totalExpenses.textContent = `$${total}`;
 
   //Expenses Count(filtered)
-  document.getElementById('stat-count').textContent = displayExpenses.length;
+  document.getElementById('stat-count').textContent = displayExpenses.length || "$0";
 
   //Average (filtered)
   const average = Number(total / displayExpenses.length).toFixed(2);
@@ -199,7 +199,6 @@ dateFilter.addEventListener('change', (e) => {
       return expenseDate >= cutoffDate; // Keep if newer than cutoff
     });
   }
-  console.log("Filtered expenses:", filteredByDate);
   handleExpense(filteredByDate, filteredByDate)
 });
 
