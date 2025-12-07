@@ -60,6 +60,7 @@ body {
 /* GREETING */
 #greeting-section {
   margin-bottom: 0.5rem;
+  color: var(--color-gray-600);
 }
 
 /* FORM */
@@ -208,6 +209,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: 3rem;
 }
 
 /* FILTER CONTAINER */

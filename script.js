@@ -78,7 +78,7 @@ function handleExpense(expenseToShow, expenseToCalculate) {
 
         expenseCard.appendChild(card);
     });
-    calculateTotal(expenseToCalculate);
+    updateStats(expenseToCalculate);
     renderChart();
 };
 
@@ -117,16 +117,35 @@ expenseCard.addEventListener('click', (e) => {
     }
 });
 
-// Caculate and display total function
-function calculateTotal(expenseToCalculate) {
-   const totalToDisplay = expenseToCalculate || expenses; // calculate filtered or all expense
-   const total = totalToDisplay.reduce((acc, exp) => {
-    return acc + Number(exp.amount);
-  }, 0);
+// Total & stats calculation
+function updateStats(expenseToCalculate) {
+  const displayExpenses = expenseToCalculate || expenses;
 
-  // Displays total expenses
+  // Total(filtered)
+  const total = displayExpenses.reduce((acc, exp) => 
+    acc + Number(exp.amount), 0)
   totalExpenses.textContent = `$${total}`;
-};
+
+  //Expenses Count(filtered)
+  document.getElementById('stat-count').textContent = displayExpenses.length;
+
+  //Average (filtered)
+  const average = Number(total / displayExpenses.length).toFixed(2);
+  document.getElementById('stat-average').textContent = `$${average}`;
+
+  //This Month(never filtered)
+  const currentMonth = new Date().getMonth(); 
+  const currentYear = new Date().getFullYear();
+
+  const thisMonthExpenses = expenses.filter((exp) => {
+    const expenseDate = new Date(exp.date);
+    return expenseDate.getMonth() === currentMonth && expenseDate.getFullYear() === currentYear;
+  });
+
+  const thisMonthTotal = thisMonthExpenses.reduce((acc, exp) => 
+    acc + Number(exp.amount), 0);
+  document.getElementById('stat-month').textContent = `$${thisMonthTotal}`
+}
 
 // filtering by category
 filterButtons[0].classList.add('active'); 
@@ -168,7 +187,6 @@ dateFilter.addEventListener('change', (e) => {
   if (daysBack) {
     cutoffDate = new Date();
     cutoffDate.setDate(cutoffDate.getDate() - daysBack);
-    // console.log("Cutoff date:", cutoffDate)
   };
 
   let filteredByDate;
@@ -292,4 +310,6 @@ function renderChart() {
       }
     }
   });
-}
+};
+
+
