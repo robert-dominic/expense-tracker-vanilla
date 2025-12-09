@@ -13,6 +13,24 @@
   <header class="header">
     <!-- Header's text -->
     <h1 id="header-text">Expense Tracker</h1>
+
+    <!-- Custom Welcome Modal -->
+    <div id="welcome-modal" class="modal-overlay">
+      <div class="modal-card">
+        <h2>👋 Welcome to Expense Tracker!</h2>
+        <p>What should we call you?</p>
+        <input 
+          type="text" 
+          id="username-input" 
+          placeholder="Enter your name"
+          maxlength="20"
+        >
+        <div class="modal-buttons">
+          <button id="submit-name-btn">Get Started</button>
+          <button id="cancel-btn" class="cancel-button">Skip</button>
+        </div>
+      </div>
+    </div>
   </header>
   <main class="container">
     <div id="greeting-section">
