@@ -127,10 +127,11 @@ function updateStats(expenseToCalculate) {
   totalExpenses.textContent = `$${total}`;
 
   //Expenses Count(filtered)
-  document.getElementById('stat-count').textContent = displayExpenses.length || "$0";
+  document.getElementById('stat-count').textContent = displayExpenses.length;
 
   //Average (filtered)
-  const average = Number(total / displayExpenses.length).toFixed(2);
+  const average = displayExpenses.length > 0 ?
+  Number(total / displayExpenses.length).toFixed(2) : 0;
   document.getElementById('stat-average').textContent = `$${average}`;
 
   //This Month(never filtered)
@@ -217,21 +218,55 @@ function loadFromLocalStorage() {
 //load expenses from localStorage
 loadFromLocalStorage();
 
-//check for username on-load
+// set max date to today (prevent future dates)
+const today = new Date().toISOString().split('T')[0];
+date.setAttribute('max', today);
+
+// check for username on-load
 let username = localStorage.getItem('user') || "";
 
+// Get modal elements
+const welcomeModal = document.getElementById('welcome-modal');
+const usernameInput = document.getElementById('username-input');
+const submitNameBtn = document.getElementById('submit-name-btn');
+const cancelBtn = document.getElementById('cancel-btn');
+
+// Show modal if no username exists
 if (!username) {
-  username = prompt("Hello! What's your name?")
+  welcomeModal.classList.add('show');
+  usernameInput.focus(); //Auto-focus the input field
 }
 
-if (username) {
-  localStorage.setItem('user', username)
-}
+// Handle "Get Started" button click
+submitNameBtn.addEventListener('click', () => {
+  const inputValue = usernameInput.value.trim();
 
-if (username === null || "") {
-  username = "Friend"
-  localStorage.setItem('user', username)
-}
+  if(!inputValue) {
+    //if empty, show alert
+    alert('Please enter your name or click "Skip" to continue as a Friend');
+    return; 
+  }
+
+  username = inputValue;
+  localStorage.setItem('user', username);
+  welcomeModal.classList.remove('show');
+  displayGreeting();
+});
+
+// Handle "Skip/Cancel" button click
+cancelBtn.addEventListener('click', () => {
+  username = "Friend";
+  localStorage.setItem('user', username);
+  welcomeModal.classList.remove('show');
+  displayGreeting();
+});
+
+// Submit on Enter key Press
+usernameInput.addEventListener('keypress', (e) => {
+  if (e.key === 'Enter') {
+    submitNameBtn.click();
+  }
+});
 
 // Display greeting
 function displayGreeting() {
@@ -250,8 +285,40 @@ displayGreeting();
 // Chart 
 function renderChart() {
   const ctx = document.getElementById('expense-chart');
+  const chartContainer = ctx.parentElement;
+  //check if there are any expenses
+  if(expenses.length === 0) {
+    // Destroy old chart if it exists
+    if (myChart) {
+      myChart.destroy();
+      myChart = null;
+    }
   
-  // Destroy old chart if it exists
+    //empty state message
+    ctx.style.display = 'none';
+  
+    let emptyMessage = chartContainer.querySelector('.chart-container');
+    if(!emptyMessage) {
+      emptyMessage = document.createElement('div');
+      emptyMessage.classList.add('chart-container');
+      emptyMessage.innerHTML = `
+        <p style="text-align: center; color: #666; padding: 40px; font-size: 20px;">
+          📊 No expenses yet.<br>Add your first expense to see the chart!
+        </p>
+      `;
+      chartContainer.appendChild(emptyMessage);
+    }
+    return
+  }
+
+  //Remove empty state if it exists
+  const emptyMessage = chartContainer.querySelector('.chart-container');
+  if (emptyMessage) {
+    emptyMessage.remove();
+  }
+  ctx.style.display = 'block';
+
+  //Destroy old chart 
   if (myChart) {
     myChart.destroy();
   }
@@ -276,7 +343,7 @@ function renderChart() {
       labels: labels,
       datasets: [{
         data: values,
-        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0']
+        backgroundColor: ['#ef4166ff', '#0947E2', '#F2CC0F', '#16ceceff']
       }]
     },
     options: {
