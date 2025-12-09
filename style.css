@@ -33,6 +33,7 @@ body {
   color: var(--color-primary);
   line-height: 1.6;
   min-height: 100vh;
+  position: relative;
 }
 
 /* HEADER */
@@ -42,6 +43,10 @@ body {
   padding: 0.6rem 1rem;
   text-align: start;
   box-shadow: var(--shadow-md);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  width: 100%;
 }
 
 #header-text, #greeting {
